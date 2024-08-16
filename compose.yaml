@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  vosk:
+    build: ./vosk
+    container_name: ears
+    ports:
+      - "63000:2700"
+
+  ollama:
+    build: ./ollama
+    container_name: brain
+    ports:
+      - "63001:11434"
+    volumes:
+      - /var/lib/docker/volumes/ollama/_data:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  tts:
+    build: ./tts
+    container_name: mouth
+    ports:
+      - "63002:5002"

@@ -1,0 +1,14 @@
+# model request to brain -> content = text as prompt
+curl http://localhost:63001/api/chat -d '{
+  "model": "friday",
+  "messages": [
+    { "role": "user", "content": "why is the sky blue?" }
+  ],
+  "stream": false
+}'
+
+# model request to tts -> 
+curl -X POST -H 'Content-Type: text/plain' --output - \
+    --data "....." \
+    'http://localhost:63002/api/tts' | \
+    aplay
